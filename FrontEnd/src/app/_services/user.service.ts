@@ -7,7 +7,7 @@ export class UserService {
     constructor(private http: HttpClient) { }
 
     getAll() {
-        return this.http.get<User[]>(`http://localhost:4000/users/users`);
+        return this.http.get<User[]>(`http://localhost:4000/users/`);
     }
 
     getById(id: number) {
