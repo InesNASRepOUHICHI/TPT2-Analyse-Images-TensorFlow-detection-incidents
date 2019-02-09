@@ -1,0 +1,17 @@
+﻿<h1>Bonjour {{currentUser.firstName}}!</h1>
+<p>Bienvenue sur l'application CG06 d'Analyse des Images et de détection des incidentsavec TensorFlow!!</p>
+<h3>Liste des véhicules:</h3>
+<table border="2">
+    <tr>
+            <td>Vehicule Number</td>
+            <td>Parking</td>
+            <td>Created Date</td>
+            <td><a (click)="deleteVehicule(vehicule.id)" class="text-danger">Delete</a></td>
+    </tr>
+    <tr *ngFor="let vehicule of vehicules">
+            <td><div><span class="registration-ui">{{vehicule.vehiculeNumber}}</span></div></td>
+            <td>{{vehicule.parking}}</td>
+            <td>{{vehicule.createdDate}}</td>
+            <td><a (click)="deleteVehicule(vehicule.id)" class="text-danger">Delete</a></td>
+    </tr>
+</table>
