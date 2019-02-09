@@ -1,4 +1,4 @@
-# MBDS Deep ANPR for Licence plqtes recognition
+# MBDS Deep ANPR for Licence plates recognition
 
 
 Ce travail est basé sur le code de Matthew Earl's [repository](https://github.com/matthewearl/deep-anpr).  
