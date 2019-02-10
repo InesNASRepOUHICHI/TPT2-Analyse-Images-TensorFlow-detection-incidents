@@ -13,6 +13,9 @@ import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { HomeComponent } from './home';
 import { LoginComponent } from './login';
 import { VehiculesComponent } from './vehicules';
+import { ListUserComponent } from './list-user';
+import { EditUserComponent } from './edit-user';
+import { AddUserComponent } from './add-user';
 import { RegisterComponent } from './register';
 
 @NgModule({
@@ -28,7 +31,10 @@ import { RegisterComponent } from './register';
         HomeComponent,
         LoginComponent,
         RegisterComponent,
-        VehiculesComponent
+        VehiculesComponent,
+        EditUserComponent,
+        AddUserComponent,
+        ListUserComponent
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

@@ -29,7 +29,7 @@ export class VehiculesComponent implements OnInit, OnDestroy {
         this.currentUserSubscription.unsubscribe();
     }
 
-    deleteUser(id: number) {
+    deleteVehicule(id: number) {
         this.vehiculeService.delete(id).pipe(first()).subscribe(() => {
             this.loadAllVehicules()
         });

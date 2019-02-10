@@ -1,17 +1,25 @@
 ﻿<h1>Bonjour {{currentUser.firstName}}!</h1>
 <p>Bienvenue sur l'application CG06 d'Analyse des Images et de détection des incidentsavec TensorFlow!!</p>
-<h3>Liste des véhicules:</h3>
-<table border="2">
-    <tr>
-            <td>Vehicule Number</td>
-            <td>Parking</td>
-            <td>Created Date</td>
-            <td><a (click)="deleteVehicule(vehicule.id)" class="text-danger">Delete</a></td>
-    </tr>
-    <tr *ngFor="let vehicule of vehicules">
-            <td><div><span class="registration-ui">{{vehicule.vehiculeNumber}}</span></div></td>
-            <td>{{vehicule.parking}}</td>
-            <td>{{vehicule.createdDate}}</td>
-            <td><a (click)="deleteVehicule(vehicule.id)" class="text-danger">Delete</a></td>
-    </tr>
-</table>
+<br/>
+<div class="user-container">
+        <h1 style="margin: auto"> Détails des véhicules</h1>
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th>Numéro de plaque</th>
+            <th>Parking</th>
+            <th>Date d'enregistrement</th>
+            <th>Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let vehicule of vehicules">
+                <td><div><span class="registration-ui">{{vehicule.vehiculeNumber}}</span></div></td>
+                <td>{{vehicule.parking}}</td>
+                <td>{{vehicule.createdDate}}</td>
+            <td><button class="btn btn-success" (click)="deleteVehicule(vehicule.id)"> Delete</button></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      
