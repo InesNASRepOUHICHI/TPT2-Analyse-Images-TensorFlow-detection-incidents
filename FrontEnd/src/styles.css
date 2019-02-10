@@ -12,6 +12,9 @@ h2 {
   font-family: helvetica, ariel, sans-serif;
   text-align: center; 
 }
+.row {
+display: inline;
+}
 .registration-ui {
 	background: #ffffff;
 	padding: .25em 1em .25em 1.75em;
