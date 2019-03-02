@@ -198,7 +198,7 @@ if __name__ == "__main__":
 
     cv2.imwrite(sys.argv[3], im)
     # data to be sent to api 
-    data = {'vehiculeNumber':code, 
+    data = {'vehiculeNumber':code[0:2]+'-'+code[2:5]+'-'+code[5:7], 
         'parking':'PARKING A1', 
         'type':'Véhicule étrangère', 
         'createdDate':time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())} 
