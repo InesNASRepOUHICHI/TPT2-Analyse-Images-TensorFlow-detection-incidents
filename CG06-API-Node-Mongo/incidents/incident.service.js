@@ -2,6 +2,7 @@
 const jwt = require('jsonwebtoken');
 const db = require('_helpers/db');
 const Incident = db.Incident;
+const Vehicule = db.Vehicule;
 
 module.exports = {
     getAll,
@@ -21,9 +22,20 @@ async function getById(id) {
 }
 
 async function create(incidentParam) {
-    const incident = new Incident(incidentParam);
-    // save incident
-    await incident.save();
+    var vehicules = await Vehicule.find().select();
+    var testCreate = true;
+    for (let vehicule of vehicules) {
+        if(vehicule.vehiculeNumber == incidentParam.vehiculeNumber){
+            testCreate = false;
+            return "false";
+            break;
+        }
+    }
+    if (testCreate){
+        const incident = new Incident(incidentParam);
+        // save incident
+        await incident.save();
+    }
 }
 
 async function update(id, incidentParam) {

@@ -10,12 +10,17 @@ import time
 import matplotlib.pyplot as plt
 import sys
 
+import requests 
+
 import cv2
 import numpy
 import tensorflow as tf
 
 import common
 import model
+
+
+API_ENDPOINT = "http://localhost:4000/incidents/create"
 
 
 def make_scaled_ims(im, min_shape):
@@ -192,6 +197,17 @@ if __name__ == "__main__":
                     thickness=2)
 
     cv2.imwrite(sys.argv[3], im)
+    # data to be sent to api 
+    data = {'vehiculeNumber':code, 
+        'parking':'PARKING A1', 
+        'type':'Véhicule étrangère', 
+        'createdDate':time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())} 
+  
+    # sending post request and saving response as response object 
+    r = requests.post(url = API_ENDPOINT, data = data) 
+    pastebin_url = r.text 
+    print("The pastebin URL is:%s"%pastebin_url) 
+    print(code)
     print("show result:")
     plt.imshow(im)
     plt.show()
