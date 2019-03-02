@@ -11,7 +11,7 @@ alpr.set_top_n(1)
 alpr.set_default_region("eu")
 
 #cap = cv2.VideoCapture("http://lien-vers-le-stream-CG06")
-cap = cv2.VideoCapture("ines.mp4")
+cap = cv2.VideoCapture("ines.webm")
 
 while(True):    
     ret, frame = cap.read() 
