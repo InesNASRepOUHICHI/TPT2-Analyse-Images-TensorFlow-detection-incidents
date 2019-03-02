@@ -13,6 +13,7 @@ import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { HomeComponent } from './home';
 import { LoginComponent } from './login';
 import { VehiculesComponent } from './vehicules';
+import { IncidentsComponent } from './incidents';
 import { ListUserComponent } from './list-user';
 import { EditUserComponent } from './edit-user';
 import { AddUserComponent } from './add-user';
@@ -32,6 +33,7 @@ import { RegisterComponent } from './register';
         LoginComponent,
         RegisterComponent,
         VehiculesComponent,
+        IncidentsComponent,
         EditUserComponent,
         AddUserComponent,
         ListUserComponent

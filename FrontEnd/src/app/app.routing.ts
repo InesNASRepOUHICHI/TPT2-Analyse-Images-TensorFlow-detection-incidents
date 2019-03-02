@@ -2,6 +2,7 @@
 
 import { HomeComponent } from './home';
 import { VehiculesComponent } from './vehicules';
+import { IncidentsComponent } from './incidents';
 import { ListUserComponent } from './list-user';
 import { EditUserComponent } from './edit-user';
 import { AddUserComponent } from './add-user';
@@ -13,6 +14,7 @@ const appRoutes: Routes = [
     { path: '', component: HomeComponent, canActivate: [AuthGuard] },
     { path: 'login', component: LoginComponent },
     { path: 'vehicules', component: VehiculesComponent },
+    { path: 'incidents', component: IncidentsComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'users', component: ListUserComponent },
     { path: 'add-user', component: AddUserComponent },

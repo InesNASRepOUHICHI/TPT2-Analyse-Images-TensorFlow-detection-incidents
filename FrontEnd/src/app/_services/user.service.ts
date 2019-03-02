@@ -19,7 +19,7 @@ export class UserService {
     }
 
     update(user: User) {
-        return this.http.put(`http://localhost:4000/users/${user.id}`, user);
+        return this.http.put(`http://localhost:4000/users/${user._id}`, user);
     }
 
     delete(id: string) {
