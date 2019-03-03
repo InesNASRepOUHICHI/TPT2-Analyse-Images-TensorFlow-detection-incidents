@@ -3,6 +3,8 @@
 <br/>
 <div class="user-container">
         <h1 style="margin: auto"> Détails des véhicules</h1>
+        <input [(ngModel)]="searchText" placeholder="Search.." class="advancedSearchTextbox">
+<p></p>
         <table class="table table-striped">
           <thead>
           <tr>
@@ -14,7 +16,8 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let incident of incidents">
+          <tr *ngFor="let incident of incidents | grdFilter: {createdDate: searchText, parking:searchText,  vehiculeNumber: searchText};">
+         
 				<td><img  src="../../assets/ATTENTION.png"> {{incident.type}}</td>
                 <td><div><span class="registration-ui">{{incident.vehiculeNumber}}</span></div></td>
                 <td>{{incident.parking}}</td>
@@ -23,5 +26,6 @@
           </tr>
           </tbody>
         </table>
+      
       </div>
       

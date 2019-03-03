@@ -8,6 +8,7 @@ import { IncidentService, AuthenticationService } from '@app/_services';
 @Component({ templateUrl: 'incidents.component.html' })
 export class IncidentsComponent implements OnInit, OnDestroy {
     currentUser: User;
+    public searchText : string;
     currentUserSubscription: Subscription;
     incidents: Incident[] = [];
 

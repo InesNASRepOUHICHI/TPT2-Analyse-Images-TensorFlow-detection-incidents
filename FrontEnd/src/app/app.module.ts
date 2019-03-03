@@ -18,13 +18,16 @@ import { ListUserComponent } from './list-user';
 import { EditUserComponent } from './edit-user';
 import { AddUserComponent } from './add-user';
 import { RegisterComponent } from './register';
-
+import { GrdFilterPipe } from './grd-filter.pipe';
+import { FormsModule } from '@angular/forms';
 @NgModule({
     imports: [
         BrowserModule,
         ReactiveFormsModule,
         HttpClientModule,
-        routing
+        routing,
+        FormsModule
+      
     ],
     declarations: [
         AppComponent,
@@ -36,7 +39,8 @@ import { RegisterComponent } from './register';
         IncidentsComponent,
         EditUserComponent,
         AddUserComponent,
-        ListUserComponent
+        ListUserComponent,
+        GrdFilterPipe
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
