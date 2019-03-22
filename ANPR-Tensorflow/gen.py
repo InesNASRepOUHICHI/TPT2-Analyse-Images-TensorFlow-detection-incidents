@@ -126,7 +126,7 @@ def make_affine_transform(from_shape, to_shape,
 
 
 def generate_code(): #Ecuador's licence plate pattern
-    return "{}{} {}{}{} {}{}".format(   
+    return "{}{} {}{}{} {}{}".format( 
        # random.choice(common.LETTERS_ECU),
         random.choice(common.LETTERS),
         random.choice(common.LETTERS),
@@ -179,7 +179,7 @@ def generate_plate(font_height, char_ims):
 
     plate = (numpy.ones(out_shape) * plate_color * (1. - text_mask) +
              numpy.ones(out_shape) * text_color * text_mask)
-
+    
     return plate, rounded_rect(out_shape, radius), code.replace(" ", "")
 
 
@@ -196,7 +196,7 @@ def generate_bg(num_bg_images):
     y = random.randint(0, bg.shape[0] - OUTPUT_SHAPE[0])
     bg = bg[y:y + OUTPUT_SHAPE[0], x:x + OUTPUT_SHAPE[1]]
 
-    return bg
+   return bg
 
 
 def generate_im(char_ims, num_bg_images):
@@ -248,7 +248,7 @@ def generate_ims():
         yield generate_im(font_char_ims[random.choice(fonts)], num_bg_images)
 
 
-generate_amount = 100000  #MUST ESPECIFY THE AMOUNT 
+generate_amount = 100  #MUST ESPECIFY THE AMOUNT 
 
 if __name__ == "__main__":
     if os.path.isdir("test"): os.rmdir('test')

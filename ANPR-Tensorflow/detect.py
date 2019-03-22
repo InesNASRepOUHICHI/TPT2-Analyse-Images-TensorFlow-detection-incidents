@@ -62,8 +62,8 @@ def detect(im, param_vals):
             feed_dict = {x: numpy.stack([scaled_im])}
             feed_dict.update(dict(zip(params, param_vals)))
             y_vals.append(sess.run(y, feed_dict=feed_dict))
-            plt.imshow(scaled_im)
-            plt.show()
+            #plt.imshow(scaled_im)
+            #plt.show()
     writer = tf.summary.FileWriter("logs/", sess.graph)
 
     # Interpret the results in terms of bounding boxes in the input image.
@@ -155,60 +155,71 @@ def letter_probs_to_code(letter_probs):
 
 if __name__ == "__main__":
     print("detect start! ", time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
-    im = cv2.imread(sys.argv[1])
+    cam = cv2.VideoCapture(sys.argv[1])
+    currentframe = 0
+    while(True): 
+        # reading from frame 
+        ret,im = cam.read() 
+        if ret: 
+            im_gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY) / 255.
+            #plt.imshow(im_gray)
+            #plt.show()
 
-    im_gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY) / 255.
+            f = numpy.load(sys.argv[2])
 
-    plt.imshow(im_gray)
-    plt.show()
+            for ii in numpy.load(sys.argv[2]):
+                if type(f[ii]) != numpy.ndarray:
+                    f.files.pop(f.files.index(ii))
 
-    f = numpy.load(sys.argv[2])
+            param_vals = [f[n] for n in sorted(f.files, key=lambda s: int(s[-1]))]
 
-    for ii in numpy.load(sys.argv[2]):
-        if type(f[ii]) != numpy.ndarray:
-            f.files.pop(f.files.index(ii))
+            for pt1, pt2, present_prob, letter_probs in post_process(
+                    detect(im_gray, param_vals)):
+                pt1 = tuple(reversed(list(map(int, pt1))))
+                pt2 = tuple(reversed(list(map(int, pt2))))
 
-    param_vals = [f[n] for n in sorted(f.files, key=lambda s: int(s[-1]))]
+                code = letter_probs_to_code(letter_probs)
 
-    for pt1, pt2, present_prob, letter_probs in post_process(
-            detect(im_gray, param_vals)):
-        pt1 = tuple(reversed(list(map(int, pt1))))
-        pt2 = tuple(reversed(list(map(int, pt2))))
+                color = (0.0, 255.0, 0.0)
+                cv2.rectangle(im, pt1, pt2, color)
 
-        code = letter_probs_to_code(letter_probs)
+                cv2.putText(im,
+                            code,
+                            pt1,
+                            cv2.FONT_HERSHEY_PLAIN,
+                            1.5,
+                            (0, 0, 0),
+                            thickness=5)
 
-        color = (0.0, 255.0, 0.0)
-        cv2.rectangle(im, pt1, pt2, color)
+                cv2.putText(im,
+                            code,
+                            pt1,
+                            cv2.FONT_HERSHEY_PLAIN,
+                            1.5,
+                            (255, 255, 255),
+                            thickness=2)
 
-        cv2.putText(im,
-                    code,
-                    pt1,
-                    cv2.FONT_HERSHEY_PLAIN,
-                    1.5,
-                    (0, 0, 0),
-                    thickness=5)
-
-        cv2.putText(im,
-                    code,
-                    pt1,
-                    cv2.FONT_HERSHEY_PLAIN,
-                    1.5,
-                    (255, 255, 255),
-                    thickness=2)
-
-    cv2.imwrite(sys.argv[3], im)
-    # data to be sent to api 
-    data = {'vehiculeNumber':code[0:2]+'-'+code[2:5]+'-'+code[5:7], 
-        'parking':'PARKING A1', 
-        'type':'Véhicule étrangère', 
-        'createdDate':time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())} 
+            cv2.imwrite(sys.argv[3], im)
+            # data to be sent to api 
+            data = {'vehiculeNumber':code[0:2]+'-'+code[2:5]+'-'+code[5:7], 
+                'parking':'PARKING A1', 
+                'type':'Véhicule étrangère', 
+                'createdDate':time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())} 
   
-    # sending post request and saving response as response object 
-    r = requests.post(url = API_ENDPOINT, data = data) 
-    pastebin_url = r.text 
-    print("The pastebin URL is:%s"%pastebin_url) 
-    print(code)
-    print("show result:")
-    plt.imshow(im)
-    plt.show()
-    print("detect end", time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
+		    # sending post request and saving response as response object 
+            r = requests.post(url = API_ENDPOINT, data = data) 
+            pastebin_url = r.text 
+            print("The pastebin URL is:%s"%pastebin_url) 
+            print(code)
+            print("show result:")
+            #plt.imshow(im)
+            #plt.show()
+            print("detect end", time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
+            currentframe += 1
+            cam.set(cv2.CAP_PROP_POS_MSEC,currentframe*1000)
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
+        else: 
+            break
+    cam.release() 
+    cv2.destroyAllWindows() 

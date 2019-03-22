@@ -31,6 +31,17 @@ async function create(incidentParam) {
             break;
         }
     }
+
+    var incidents = await Incident.find().select();
+    var testCreate = true;
+    for (let incident of incidents) {
+        if(incident.vehiculeNumber == incidentParam.vehiculeNumber){
+            testCreate = false;
+            return "false";
+            break;
+        }
+    }
+
     if (testCreate){
         const incident = new Incident(incidentParam);
         // save incident
